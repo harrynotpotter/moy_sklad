@@ -3,18 +3,20 @@ package com.example.moy_sklad.models.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.util.List;
 
 @NoArgsConstructor
 @Data
 @Entity
-public class Receipt {
+public class Sale {
     @Id
     private int number;
     private int quantity;
-    private BigDecimal purchase_price;
+    private BigDecimal sale_price;
     @ManyToOne
     @JoinColumn(name="storage_id")
     private Storage storage;

@@ -18,7 +18,10 @@ public class Product {
     private BigDecimal last_purchase_price;
     private BigDecimal last_sale_price;
 
-    @ManyToOne
-    @JoinColumn(name="receipt_id")
-    private Receipt receipt;
+    public Product( String article, String name, BigDecimal last_purchase_price, BigDecimal last_sale_price) {
+        this.article = article;
+        this.name = name;
+        this.last_purchase_price = last_purchase_price;
+        this.last_sale_price = last_sale_price;
+    }
 }
