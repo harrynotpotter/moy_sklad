@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +27,10 @@ public class StorageController {
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity addStorage(@RequestBody Storage storage) {
+    public ResponseEntity addStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return  ResponseEntity.badRequest().body("Введены некорректные данные");
+        }
         storageService.addStorage(storage);
         return  ResponseEntity.ok().body(storage);
     }
@@ -39,7 +44,10 @@ public class StorageController {
 
     @PostMapping (value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity changeStorage(@RequestBody Storage storage) {
+    public ResponseEntity changeStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return  ResponseEntity.badRequest().body("Введены некорректные данные");
+        }
         storageService.addStorage(storage);
         return  ResponseEntity.ok().body(storage);
     }

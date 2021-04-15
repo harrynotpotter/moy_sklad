@@ -1,8 +1,8 @@
 package com.example.moy_sklad.controllers;
 
+import com.example.moy_sklad.models.entity.CalculationProduct;
 import com.example.moy_sklad.models.entity.Moving;
-import com.example.moy_sklad.models.entity.Product;
-import com.example.moy_sklad.models.entity.Receipt;
+import com.example.moy_sklad.services.CalculationProductService;
 import com.example.moy_sklad.services.MovingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,37 +14,37 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movings")
-public class MovingController {
+@RequestMapping("/calculation")
+public class CalculationProductController {
     @Autowired
-    private MovingService movingService;
+    private CalculationProductService calculationProductService;
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Moving> getMovings() {
-        return movingService.getAllMovings();
+    public List<CalculationProduct> getCalculations() {
+        return calculationProductService.getAllCalculations();
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addMoving(@Valid @RequestBody Moving moving, BindingResult bindingResult) {
+    public ResponseEntity addCalculation(@Valid @RequestBody CalculationProduct calculation, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return  ResponseEntity.badRequest().body("Введены некорректные данные");
         }
-        final Moving result = movingService.addMoving(moving);
+        final CalculationProduct result = calculationProductService.addCalculation(calculation);
         return ResponseEntity.ok().body(result);
     }
 
     @GetMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteMoving(@PathVariable Integer id) {
-        movingService.deleteById(id);
+    public ResponseEntity deleteCalculation(@PathVariable Integer id) {
+        calculationProductService.deleteById(id);
         return ResponseEntity.ok().body(id);
     }
 
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changeMoving(@Valid @RequestBody Moving moving, BindingResult bindingResult) {
+    public ResponseEntity changeCalculation(@Valid @RequestBody CalculationProduct calculationProduct, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return  ResponseEntity.badRequest().body("Введены некорректные данные");
         }
-        movingService.addMoving(moving);
-        return ResponseEntity.ok().body(moving);
+        final CalculationProduct result = calculationProductService.addCalculation(calculationProduct);
+        return ResponseEntity.ok().body(result);
     }
 }

@@ -14,7 +14,6 @@ public class StorageService {
         return storageRepository.findAll();
     }
 
-    ;
     @Autowired
     private StorageRepository storageRepository;
 
@@ -26,7 +25,5 @@ public class StorageService {
         storageRepository.deleteById(id);
     }
 
-    public void addProduct(Storage storage) {
-        storageRepository.save(storage);
-    }
+
 }
